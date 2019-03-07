@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/edit/edit_user_contact_screen.dart';
+import 'package:my_app/edit/edit_user_text_document.dart';
 import '../elasticsearch/models.dart';
 
 class UserSearchCard extends StatefulWidget {
@@ -76,9 +77,21 @@ class _UserSearchCardState extends State<UserSearchCard> {
         return ListTile(
             leading: Icon(Icons.note),
             title: Text(document.title),
-            onTap: () {
+            onTap: () async {
               print(user.id);
               print(document.uid);
+              var saved = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditUserTextDocumentScreen(
+                        user: widget.user, document: document),
+                  ));
+              if (saved == true) {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Row(children: [
+                  Text('Document Saved!'),
+                ])));
+              }
             });
       }
     }).toList());

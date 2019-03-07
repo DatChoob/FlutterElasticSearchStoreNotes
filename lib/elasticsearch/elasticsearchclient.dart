@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'models.dart';
 
 class ElasticSearchClient {
-  updateUser(User user) {
+  updateUser(User user) async {
     return http.post("http://localhost:9200/users/user/${user.id}/_update",
         body: jsonEncode({'doc': _getUpdateUserPayload(user)}),
         headers: {"Content-Type": "application/json"}).then((response) {
@@ -18,7 +18,8 @@ class ElasticSearchClient {
       'name': user.name,
       'email': user.email,
       'phone_number': user.phoneNumber,
-      'date_of_birth': user.dateOfBirth?.toString()
+      'date_of_birth': user.dateOfBirth?.toString(),
+      'documents': _getDocumentPayload(user.documents)
     };
   }
 
@@ -101,5 +102,18 @@ class ElasticSearchClient {
           title: documentInformation['title']));
     }
     return userDocuments;
+  }
+
+  _getDocumentPayload(List<Document> documents) {
+    var docArray = [];
+    for (Document doc in documents) {
+      docArray.add({
+        'uid': doc.uid,
+        'data_type': doc.dataType,
+        'data': doc.data,
+        'title': doc.title
+      });
+    }
+    return docArray;
   }
 }
