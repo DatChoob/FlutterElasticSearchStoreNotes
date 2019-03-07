@@ -1,6 +1,6 @@
 class User {
   String id;
-  List<String> emails;
+  String email;
   String name;
   String phoneNumber;
   String dateOfBirth;
@@ -8,7 +8,7 @@ class User {
   List<Document> documents;
   User(
       {this.id,
-      this.emails,
+      this.email,
       this.name,
       this.phoneNumber,
       this.dateOfBirth,
@@ -19,8 +19,9 @@ class User {
 }
 
 class Document {
+  num uid;
   String dataType;
   String title;
   dynamic data;
-  Document({this.dataType, this.title, this.data});
+  Document({this.uid, this.dataType, this.title, this.data});
 }

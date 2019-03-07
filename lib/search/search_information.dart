@@ -50,7 +50,6 @@ class _SearchInformationState extends State<SearchInformation> {
   }
 
   Widget _createUserCards(snapshotData) {
-    print(snapshotData);
     if (snapshotData.length == 0) {
       return Text("No Results Found");
     } else {
@@ -58,10 +57,7 @@ class _SearchInformationState extends State<SearchInformation> {
       for (User user in snapshotData) {
         widgets.add(UserSearchCard(user: user));
       }
-      return ListView(
-          // shrinkWrap: true,
-          // padding: const EdgeInsets.all(20.0),
-          children: widgets);
+      return ListView(children: widgets);
     }
   }
 }

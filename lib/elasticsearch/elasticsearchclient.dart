@@ -3,12 +3,29 @@ import 'package:http/http.dart' as http;
 import 'models.dart';
 
 class ElasticSearchClient {
+  updateUser(User user) {
+    return http.post("http://localhost:9200/users/user/${user.id}/_update",
+        body: jsonEncode({'doc': _getUpdateUserPayload(user)}),
+        headers: {"Content-Type": "application/json"}).then((response) {
+      print("Response status: ${response.statusCode}");
+      // print("Response body: ${response.body}");
+      return response.statusCode == 200;
+    });
+  }
+
+  _getUpdateUserPayload(User user) {
+    return {
+      'name': user.name,
+      'email': user.email,
+      'phone_number': user.phoneNumber,
+      'date_of_birth': user.dateOfBirth?.toString()
+    };
+  }
+
   searchByKeywords(keywords) {
     return http.post("http://localhost:9200/users/user/_search",
         body: jsonEncode(_getRequestPayload(keywords)),
         headers: {"Content-Type": "application/json"}).then((response) {
-      // print("Response status: ${response.statusCode}");
-      // print("Response body: ${response.body}");
       return _mapSearchKeywordResponse(response.body);
     });
   }
@@ -67,7 +84,7 @@ class ElasticSearchClient {
             esUser["inner_hits"]["documents"]["hits"]["hits"],
           ),
           dateOfBirth: esUserSource["date_of_birth"],
-          emails: esUserSource["emails"]?.split(","));
+          email: esUserSource["email"]);
       users.add(user);
     }
     return users;
@@ -78,6 +95,7 @@ class ElasticSearchClient {
     for (var document in documents) {
       var documentInformation = document['_source'];
       userDocuments.add(Document(
+          uid: documentInformation['uid'],
           data: documentInformation['data'],
           dataType: documentInformation['data_type'],
           title: documentInformation['title']));
