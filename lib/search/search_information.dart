@@ -40,8 +40,10 @@ class _SearchInformationState extends State<SearchInformation> {
                   if (snapshot.data != null) {
                     return _createUserCards(snapshot.data);
                   } else {
-                    return new CircularProgressIndicator();
+                    return Container(child: Text("No Data Returned"));
                   }
+                } else {
+                  return CircularProgressIndicator();
                 }
               }))
     ]);
