@@ -28,18 +28,17 @@ class _UserSearchCardState extends State<UserSearchCard> {
             trailing: FlatButton(
               child: Icon(Icons.edit),
               onPressed: () async {
-                /* Route user to new page to edit their personal info */
-
                 var saved = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        EditUserContactInfoScreen(user: widget.user),
-                  ),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          EditUserContactInfoScreen(user: widget.user),
+                    ));
                 if (saved == true) {
-                  Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text('User Data Saved!')));
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Row(children: [
+                    Text('User Data Saved! Please Refresh.'),
+                  ])));
                 }
               },
             ),
