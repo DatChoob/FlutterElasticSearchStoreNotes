@@ -15,7 +15,15 @@ class User {
       this.documents,
       this.address});
 
-  String getName() => name;
+  toFirebaseJson() {
+    return {
+      'name': name,
+      'date_of_birth': dateOfBirth,
+      'email': email,
+      'phone_number': phoneNumber,
+      'address': address
+    };
+  }
 }
 
 class Document {

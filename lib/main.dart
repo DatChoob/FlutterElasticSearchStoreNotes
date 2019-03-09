@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/search/search_information.dart';
+import 'package:my_app/viewusers/view_users_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Notes by Elasticsearch'),
     );
   }
 }
@@ -29,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _widgetOptions = [
     Text('Index 0: Home'),
     SearchInformation(),
-    Text('Index 2: School'),
+    ViewUsersScreen(),
   ];
 
   @override
@@ -45,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.search), title: Text('Search')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.school), title: Text('School')),
+              icon: Icon(Icons.person), title: Text('Users')),
         ],
         currentIndex: _selectedIndex,
         fixedColor: Colors.deepPurple,
