@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "109620479458",
+    "firebase_url": "https://flutterelasticsearch.firebaseio.com",
+    "project_id": "flutterelasticsearch",
+    "storage_bucket": "flutterelasticsearch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109620479458:android:df22ebedafef81e5",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109620479458-bosqka4h2q330dlokmu8ce8ur7so2i15.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4fuYXMcKeRMCcZIA7TqRM9YFfsPx5eJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
