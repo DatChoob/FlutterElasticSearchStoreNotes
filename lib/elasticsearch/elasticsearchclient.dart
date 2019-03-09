@@ -4,7 +4,8 @@ import 'models.dart';
 
 class ElasticSearchClient {
   updateUser(User user) async {
-    return http.post("http://localhost:9200/users/user/${user.id}/_update",
+    return http.post(
+        "http://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/${user.id}/_update",
         body: jsonEncode({'doc': _getUpdateUserPayload(user)}),
         headers: {"Content-Type": "application/json"}).then((response) {
       print("Response status: ${response.statusCode}");
@@ -24,7 +25,8 @@ class ElasticSearchClient {
   }
 
   searchByKeywords(keywords) {
-    return http.post("http://localhost:9200/users/user/_search",
+    return http.post(
+        "http://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/_search",
         body: jsonEncode(_getRequestPayload(keywords)),
         headers: {"Content-Type": "application/json"}).then((response) {
       return _mapSearchKeywordResponse(response.body);
