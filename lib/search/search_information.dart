@@ -43,7 +43,9 @@ class _SearchInformationState extends State<SearchInformation> {
                     return Container(child: Text("No Data Returned"));
                   }
                 } else {
-                  return CircularProgressIndicator();
+                  return Container(
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator());
                 }
               }))
     ]);
