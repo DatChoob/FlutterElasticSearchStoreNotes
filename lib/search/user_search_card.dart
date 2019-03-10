@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/edit/edit_user_contact_screen.dart';
 import 'package:my_app/edit/edit_user_text_document.dart';
+import 'package:my_app/viewusers/add_user_screen.dart';
 import '../elasticsearch/models.dart';
 
 class UserSearchCard extends StatefulWidget {
@@ -32,8 +32,8 @@ class _UserSearchCardState extends State<UserSearchCard> {
                 var saved = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          EditUserContactInfoScreen(user: widget.user),
+                      builder: (context) => AddUserContactInfoScreen(
+                          user: widget.user, mode: 'edit'),
                     ));
                 if (saved == true) {
                   Scaffold.of(context).showSnackBar(SnackBar(
@@ -78,8 +78,8 @@ class _UserSearchCardState extends State<UserSearchCard> {
             leading: Icon(Icons.note),
             title: Text(document.title),
             onTap: () async {
-              print(user.id);
-              print(document.uid);
+              print(user.userID);
+              print(document.documentID);
               var saved = await Navigator.push(
                   context,
                   MaterialPageRoute(

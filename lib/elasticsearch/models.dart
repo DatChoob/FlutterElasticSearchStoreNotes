@@ -1,5 +1,5 @@
 class User {
-  String id;
+  String userID;
   String email;
   String name;
   String phoneNumber;
@@ -8,7 +8,7 @@ class User {
   List<Document> documents;
   String imageURL;
   User(
-      {this.id,
+      {this.userID,
       this.email,
       this.name,
       this.phoneNumber,
@@ -19,16 +19,19 @@ class User {
 
   toFirebaseJson() {
     return {
+      //'userID': userID,
       'name': name,
       'dateOfBirth': dateOfBirth,
       'email': email,
       'phoneNumber': phoneNumber,
-      'address': address
+      'address': address,
+      'imageURL': imageURL
     };
   }
 
   static fromFirebase(Map<String, dynamic> data) {
     return User(
+        userID: data['userID'],
         name: data['name'],
         dateOfBirth: data['dateOfBirth'],
         email: data['email'],
@@ -39,9 +42,9 @@ class User {
 }
 
 class Document {
-  num uid;
+  num documentID;
   String dataType;
   String title;
   dynamic data;
-  Document({this.uid, this.dataType, this.title, this.data});
+  Document({this.documentID, this.dataType, this.title, this.data});
 }

@@ -25,7 +25,9 @@ dependencies:
   firebase_auth: ^0.8.1+4
   firebase_storage: ^2.1.0+1
   cloud_functions: ^0.1.2
-
+  datetime_picker_formfield: ^0.1.8
+  image_picker: ^0.5.0+3
+  uuid: 2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

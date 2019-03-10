@@ -26,7 +26,7 @@ class _ViewUsersScreenState extends State<ViewUsersScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    AddUserContactInfoScreen(),
+                                    AddUserContactInfoScreen(mode: 'add'),
                               ));
                         },
                         icon: Icon(Icons.add))),
@@ -76,19 +76,19 @@ class UserCard extends StatelessWidget {
   }
 
   Widget _getImageOfUser() {
-    if (user.imageURL == null) {
-      return Image.network(
-        user.imageURL ??
-            "https://www.doginni.cz/front_path/images/dog_circle.png",
-        width: 100,
-        height: 100,
-      );
+    if (user.imageURL != null) {
+      return Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  fit: BoxFit.cover, image: NetworkImage(user.imageURL))));
     } else
       return Center(
         child: Container(
+          width: 190.0,
+          height: 190.0,
           child: CircleAvatar(
             backgroundColor: Colors.red,
-            radius: 60,
             child: Text(
               user.name[0].toUpperCase(),
               style: TextStyle(

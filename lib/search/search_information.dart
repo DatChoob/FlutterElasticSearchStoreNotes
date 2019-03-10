@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_app/firebase/firebase_client.dart';
 import 'package:my_app/search/user_search_card.dart';
 
 import '../elasticsearch/elasticsearchclient.dart';
@@ -51,7 +53,7 @@ class _SearchInformationState extends State<SearchInformation> {
     ]);
   }
 
-  Widget _createUserCards(snapshotData) {
+  _createUserCards(snapshotData) {
     if (snapshotData.length == 0) {
       return Text("No Results Found");
     } else {

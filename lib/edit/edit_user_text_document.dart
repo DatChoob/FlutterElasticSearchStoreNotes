@@ -28,7 +28,7 @@ class _EditUserTextDocumentScreenState
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 for (Document doc in widget.user.documents) {
-                  if (doc.uid == widget.document.uid) {
+                  if (doc.documentID == widget.document.documentID) {
                     doc.data = widget.document.data;
                     break;
                   }
