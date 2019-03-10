@@ -56,7 +56,7 @@ class _CreateUserState extends State<CreateUser> {
   final _formKey = GlobalKey<FormState>();
   File _image;
 
-  Future getImage() async {
+  getImage() async {
     var image = await ImagePicker.pickImage(
         source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     setState(() => _image = image);
@@ -69,7 +69,7 @@ class _CreateUserState extends State<CreateUser> {
         ? FileImage(_image)
         : widget.user.imageURL != null
             ? NetworkImage(widget.user.imageURL)
-            : NetworkImage(dogImageURL);
+            : AssetImage('assets/dog.png');
   }
 
   @override
@@ -88,6 +88,7 @@ class _CreateUserState extends State<CreateUser> {
                   children: <Widget>[
                     Container(
                         height: 300,
+                        width: 300,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(

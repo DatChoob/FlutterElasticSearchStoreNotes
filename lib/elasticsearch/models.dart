@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   String userID;
   String email;
@@ -33,7 +35,7 @@ class User {
     return User(
         userID: data['userID'],
         name: data['name'],
-        dateOfBirth: data['dateOfBirth'],
+        dateOfBirth: (data['dateOfBirth'] as Timestamp)?.toDate(),
         email: data['email'],
         phoneNumber: data['phoneNumber'],
         address: data['address'],

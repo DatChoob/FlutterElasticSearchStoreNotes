@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/elasticsearch/models.dart';
 import 'package:my_app/viewusers/add_user_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ViewUsersScreen extends StatefulWidget {
   @override
@@ -44,11 +45,12 @@ class _ViewUsersScreenState extends State<ViewUsersScreen> {
             return Center(child: Text('No Data...'));
           } else {
             return GridView.count(
-              primary: false,
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(20.0),
+              crossAxisCount: 3,
+              childAspectRatio: 1.0,
+              padding: const EdgeInsets.all(4.0),
+              mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
-              crossAxisCount: 4,
               children: _usersToCards(snapshot.data),
             );
           }
@@ -71,17 +73,28 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _getImageOfUser(),
+      child: GridTile(
+          footer: GridTileBar(
+            subtitle: Center(child: Text(user.name)),
+          ),
+          child: _getImageOfUser()),
     );
   }
 
   Widget _getImageOfUser() {
     if (user.imageURL != null) {
       return Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(user.imageURL))));
+          child: Stack(
+        children: <Widget>[
+          Center(child: CircularProgressIndicator()),
+          Center(
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: user.imageURL,
+            ),
+          ),
+        ],
+      ));
     } else
       return Center(
         child: Container(
