@@ -2,8 +2,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:my_app/elasticsearch/elasticsearchclient.dart';
 import 'package:my_app/elasticsearch/models.dart';
+import 'package:my_app/firebase/firebase_client.dart';
 
 class EditUserContactInfoScreen extends StatelessWidget {
   final User user;
@@ -101,7 +101,7 @@ class _EditUserFormState extends State<EditUserForm> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      await ElasticSearchClient().updateUser(widget.user);
+                      FirebaseClient.updateUser(widget.user);
                       Navigator.pop(context, true);
                     }
                   },

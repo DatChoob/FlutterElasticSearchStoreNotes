@@ -105,7 +105,7 @@ class _CreateUserState extends State<CreateUser> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      FirebaseClient().createUser(widget.user);
+                      FirebaseClient.createUser(widget.user);
                       Navigator.pop(context, true);
                     }
                   },
