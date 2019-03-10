@@ -3,9 +3,10 @@ class User {
   String email;
   String name;
   String phoneNumber;
-  String dateOfBirth;
+  DateTime dateOfBirth;
   String address;
   List<Document> documents;
+  String imageURL;
   User(
       {this.id,
       this.email,
@@ -13,16 +14,27 @@ class User {
       this.phoneNumber,
       this.dateOfBirth,
       this.documents,
-      this.address});
+      this.address,
+      this.imageURL});
 
   toFirebaseJson() {
     return {
       'name': name,
-      'date_of_birth': dateOfBirth,
+      'dateOfBirth': dateOfBirth,
       'email': email,
-      'phone_number': phoneNumber,
+      'phoneNumber': phoneNumber,
       'address': address
     };
+  }
+
+  static fromFirebase(Map<String, dynamic> data) {
+    return User(
+        name: data['name'],
+        dateOfBirth: data['dateOfBirth'],
+        email: data['email'],
+        phoneNumber: data['phoneNumber'],
+        address: data['address'],
+        imageURL: data['imageURL']);
   }
 }
 

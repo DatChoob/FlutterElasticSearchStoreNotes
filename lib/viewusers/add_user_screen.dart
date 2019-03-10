@@ -2,32 +2,42 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:my_app/elasticsearch/elasticsearchclient.dart';
-import 'package:my_app/elasticsearch/models.dart';
+import 'package:my_app/firebase/firebase_client.dart';
 
-class EditUserContactInfoScreen extends StatelessWidget {
-  final User user;
-  EditUserContactInfoScreen({this.user});
+import '../elasticsearch/models.dart';
+
+class AddUserContactInfoScreen extends StatefulWidget {
+  AddUserContactInfoScreen({Key key}) : super(key: key);
+
+  _AddUserContactInfoScreenState createState() =>
+      _AddUserContactInfoScreenState();
+}
+
+class _AddUserContactInfoScreenState extends State<AddUserContactInfoScreen> {
+  final User user = User();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Edit User'),
+          title: Text('Add User'),
         ),
-        body: new EditUserForm(user: user));
+        body: CreateUser(user: user));
   }
 }
 
-class EditUserForm extends StatefulWidget {
-  EditUserForm({
+class CreateUser extends StatefulWidget {
+  CreateUser({
+    Key key,
     @required this.user,
-  });
+  }) : super(key: key);
   final User user;
+
   @override
-  _EditUserFormState createState() => _EditUserFormState();
+  _CreateUserState createState() => _CreateUserState();
 }
 
-class _EditUserFormState extends State<EditUserForm> {
+class _CreateUserState extends State<CreateUser> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -39,7 +49,6 @@ class _EditUserFormState extends State<EditUserForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextFormField(
-              initialValue: widget.user.name,
               keyboardType: TextInputType.text,
               decoration: new InputDecoration(
                   icon: const Icon(Icons.person),
@@ -52,7 +61,6 @@ class _EditUserFormState extends State<EditUserForm> {
               },
               onSaved: (val) => widget.user.name = val),
           TextFormField(
-              initialValue: widget.user.email,
               decoration: const InputDecoration(
                 icon: const Icon(Icons.email),
                 hintText: 'Enter a email address',
@@ -61,7 +69,6 @@ class _EditUserFormState extends State<EditUserForm> {
               keyboardType: TextInputType.emailAddress,
               onSaved: (val) => widget.user.email = val),
           TextFormField(
-              initialValue: widget.user.phoneNumber,
               decoration: const InputDecoration(
                 icon: const Icon(Icons.phone),
                 hintText: 'Enter a phone number',
@@ -75,16 +82,13 @@ class _EditUserFormState extends State<EditUserForm> {
           DateTimePickerFormField(
             inputType: InputType.date,
             format: DateFormat('yyyy-MM-dd'),
-            initialValue: widget.user.dateOfBirth,
-            decoration: const InputDecoration(
-              icon: const Icon(Icons.calendar_today),
-              hintText: 'Enter your date of birth',
-              labelText: 'Dob',
-            ),
-            onSaved: (val) => widget.user.dateOfBirth = val,
+            decoration: InputDecoration(
+                icon: const Icon(Icons.calendar_today),
+                hintText: 'Enter your date of birth',
+                labelText: 'Dob'),
+            onChanged: (dt) => setState(() => widget.user.dateOfBirth = dt),
           ),
           TextFormField(
-            initialValue: widget.user.address,
             decoration: const InputDecoration(
               icon: const Icon(Icons.location_city),
               hintText: 'Where Do you live',
@@ -98,10 +102,10 @@ class _EditUserFormState extends State<EditUserForm> {
             child: SizedBox(
                 width: double.infinity,
                 child: RaisedButton(
-                  onPressed: () async {
+                  onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      await ElasticSearchClient().updateUser(widget.user);
+                      FirebaseClient().createUser(widget.user);
                       Navigator.pop(context, true);
                     }
                   },

@@ -26,7 +26,7 @@ class ElasticSearchClient {
 
   searchByKeywords(keywords) {
     return http.post(
-        "http://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/_search",
+        "https://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/_search",
         body: jsonEncode(_getRequestPayload(keywords)),
         headers: {"Content-Type": "application/json"}).then((response) {
       return _mapSearchKeywordResponse(response.body);
@@ -98,9 +98,9 @@ class ElasticSearchClient {
     for (var document in documents) {
       var documentInformation = document['_source'];
       userDocuments.add(Document(
-          uid: documentInformation['uid'],
+          uid: documentInformation['documentID'],
           data: documentInformation['data'],
-          dataType: documentInformation['data_type'],
+          dataType: documentInformation['dataType'],
           title: documentInformation['title']));
     }
     return userDocuments;
@@ -110,8 +110,8 @@ class ElasticSearchClient {
     var docArray = [];
     for (Document doc in documents) {
       docArray.add({
-        'uid': doc.uid,
-        'data_type': doc.dataType,
+        'documentID': doc.uid,
+        'dataType': doc.dataType,
         'data': doc.data,
         'title': doc.title
       });
