@@ -57,7 +57,8 @@ class _CreateUserState extends State<CreateUser> {
   File _image;
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery, maxHeight: 400, maxWidth: 400);
     setState(() => _image = image);
   }
 
