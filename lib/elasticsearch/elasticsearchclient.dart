@@ -26,7 +26,7 @@ class ElasticSearchClient {
 
   searchByKeywords(keywords) {
     return http.post(
-        "https://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/_search",
+        "http://elastic:Mu2PMMwT@35.193.11.79:8080/users/user/_search",
         body: jsonEncode(_getRequestPayload(keywords)),
         headers: {"Content-Type": "application/json"}).then((response) {
       return _mapSearchKeywordResponse(response.body);
